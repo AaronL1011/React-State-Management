@@ -1,6 +1,6 @@
 import React, { FC } from "react";
 import { Flex } from "@chakra-ui/react";
-import Navbar from "../../molecules/Navbar";
+import Navbar from '../../examples/Navbar';
 
 export interface NavLayoutProps {
 	content: React.ReactNode;
