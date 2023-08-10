@@ -10,6 +10,7 @@ const Composition = () => {
   return (
     <SplitLayout
       title='Component Composition'
+      description='Have a look at the README for this section to understand the differences in these components.'
       leftElement={<RegularApp />}
       rightElement={<CompositionedApp />}
     />
