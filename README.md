@@ -13,7 +13,7 @@ For the best experience, I recommend you install the React Devtools browser exte
 # State Management in React
 State management in React, a debate as old as React itself and it only becomes more complex each year as the framework evolves and the community creates more approaches to how and where you store the UI state required to drive your front-ends.
 
-The aim of this document is to provide some good working principles for how to contain your UI State with the tools provided by React. By **no** means are any of the ideas in this document **hard and fast rules**, they are a collection of opinions I’ve developed over the course of my career that help organise code in a semi-sensible way erring on the side of optimal performance. I’m not going to speak on state management and frameworks like Redux, MobX, Zustand and the like, as these solve a different problem and are a very large discussion, full of opinions.
+The aim of this document is to provide some good working principles for how to contain your UI State with the tools provided by React. By **no** means are any of the ideas in this document **hard and fast rules**, they are a collection of opinions I’ve developed over the course of my career that help organise code in a semi-sensible way erring on the side of optimal performance. I’m not going to speak too much on state management and frameworks like Redux, MobX, Zustand and the like, as these solve a different problem and are a very large discussion, full of opinions. To briefly address it, when you catch yourself passing the same data through multiple component layers/branches, or you need features such as optimistic updates, undo/redo, or time-travel debugging, that’s when to reach for a dedicated store library. Otherwise, React’s built-in state tools usually do the job.
 
 ![A flowchart of state management decisions](state-flowchart.png)
 *https://kentcdodds.com/blog/state-colocation-will-make-your-react-app-faster*
@@ -36,6 +36,8 @@ React triggers a component re-render for a few conditions:
 - Update of a `useState` value.
 - Update of a prop passed to the component.
 - The parent re-rendered.
+
+**Caveat**: This overlooks `React.memo()`, which can skip a re-render when a component’s props are _shallow-equal_ to its previous props.
 
 With these conditions in mind, we can begin to see some ways to optimise the performance of our interfaces. If changes in props cause re-renders, its a good idea to avoid prop-drilling when possible, and if an update to the `useState` value triggers the component to re-render, its also a good idea (possibly counter-intuitively) to try and push our state down as low as it can get in the component tree. This is essentially what it means to **colocate** state.
 
